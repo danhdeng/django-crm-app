@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lead Details</title>
-</head>
-<body>
-    <a href="/leads">go back to the lead page</a>
+{% extends 'base.html' %}
+     {% block content %}
+    <a href="{% url 'leads:lead-list' %}" target="_blank">go back to the lead page</a>
     <br>
     <h1>Lead Details</h1>
-    this is the lead details of {{lead.first_name}} {{lead.last_name}}
-    the age of the lead is {{lead.age}}
-</body>
+    this is the lead details of {{lead.first_name}} {{lead.last_name}} <br>
+    the age of the lead is {{lead.age}} <br>
+    the lead had been assigned to {{lead.agent}} <br>
+    <hr />
+    <a href="{% url 'leads:lead-update' lead.pk %}">Update</a><a href="{% url 'leads:lead-delete' lead.pk %}">Delete</a>
+
+ {% endblock content %}

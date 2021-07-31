@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lead List</title>
-    <style>
-        .lead{
-            padding-top:10px;
-            padding-bottom:10px;
-            padding-left:6px;
-            padding-right:6px;
-            margin-top:10px;
-            background-color: lightgrey;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+     {% block content %}
     <h1>Lead List</h1>
     {% for  lead in leads %}
         <div class="lead">
-       <a href="/leads/{{lead.pk}}"> {{lead.first_name}} {{lead.last_name}} </a> {{lead.age}}</div>
+            <a href="{% url 'leads:lead-update' lead.pk %}"> {{lead.first_name}} {{lead.last_name}} </a> {{lead.age}} <a href="/leads/{{lead.pk}}/update/">Update</a> <a href="/leads/{{lead.pk}}/delete/">Delete</a>
+        </div>
     {% endfor%}
-</body>
+    <hr /> 
+    <a href="{% url 'leads:lead-create'%}">Create a Lead</a>
+
+ {% endblock content %}
+
