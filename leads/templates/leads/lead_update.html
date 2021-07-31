@@ -1,4 +1,49 @@
 {% extends 'base.html' %}
+     {% block content %}
+   <section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+        <h2 class="text-sm title-font text-gray-500 tracking-widest">Lead</h2>
+        <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{lead.first_name}}  {{lead.last_name}}</h1>
+        <div class="flex mb-4">
+          <a href="{% url 'leads:lead-details' lead.pk %}"class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Description</a>
+          <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Reviews</a>
+          <a class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">Details</a>
+        </div>
+           <div class="flex border-t border-gray-200 py-2 justify-end">
+          <span class="text-gray-500">First Name</span>
+          <input type="text" id="first_name" name="first_name" value="{{lead.first_name}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out text-align:right">
+        </div>
+        <div class="flex border-t border-gray-200 py-2">
+          <span class="text-gray-500">Last Name</span>
+          <input type="text"class="ml-auto text-gray-900">{{lead.last_name}}</input>
+        </div>
+        <div class="flex border-t border-gray-200 py-2">
+          <span class="text-gray-500">Age</span>
+          <input class="ml-auto text-gray-900">{{lead.age}}</input>
+        </div>
+        <div class="flex border-t border-gray-200 py-2">
+          <span class="text-gray-500">Location</span>
+          <span class="ml-auto text-gray-900">Toronto</span>
+        </div>
+        <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+          <span class="text-gray-500">Cell Phone</span>
+          <span class="ml-auto text-gray-900">416-123-4567</span>
+        </div>
+        <div class="flex justify-end">
+          <a href="{% url 'leads:lead-update' lead.pk %}"class="flex ml-2 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Update</a>
+          <a href="{% url 'leads:lead-delete' lead.pk %}"class="flex  ml-2  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Delete</a>
+         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ {% endblock content %}
+
+
+{% comment %} {% extends 'base.html' %}
     {% block content %}
     <a href="{% url 'leads:lead-list' %}">go back to the lead page</a>
     <br>
@@ -9,5 +54,5 @@
     <button type="submit">Submit</button>
     </form>
 
- {% endblock content %}
+ {% endblock content %} {% endcomment %}
 

@@ -18,9 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 "import function base view from leads"
-# from leads.views import home_page, lead_page
+from leads.views import landing_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('leads/', include("leads.urls", namespace='leads')),
+    path('', landing_page, name='landing-page'),
 ]
