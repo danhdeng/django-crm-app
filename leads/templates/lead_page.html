@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lead Page</title>
+</head>
+<body>
+    <p>this is our custom Lead page template with custom DIRS</p>
+    {{leads}}
+    <ul>
+    {% for  lead in leads %}
+        <li>{{lead}}</li>
+    {% endfor%}
+    </ul>
+</body>
