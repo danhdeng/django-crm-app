@@ -1,10 +1,65 @@
-from django.shortcuts import render, redirect   
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-from .models import Lead, SalesPerson
-from .forms import LeadForm, LeadModelForm
+from django.views.generic import TemplateView, ListView, DetailView,CreateView,UpdateView,DeleteView
+from django.core.mail import send_mail
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Lead, SalesPerson, User
+from .forms import LeadForm, LeadModelForm, UserForm
 
 # Create your views here.
+#class based view
+class SignupView(CreateView):
+    template_name="registration/signup.html"
+    form_class=UserForm
+    def get_success_url(self):
+        return reverse("login-page")
+class landingpageview(TemplateView):
+    template_name="leads/landing_page.html"
 
+class LeadListView(LoginRequiredMixin,ListView):
+    template_name="leads/lead_list.html"
+    queryset=Lead.objects.all()
+    context_object_name="leads"
+    
+class LeadDetailView(LoginRequiredMixin, DetailView):
+    template_name="leads/lead_details.html"
+    queryset=Lead.objects.all()
+    context_object_name="lead"
+    pk_url_kwarg = 'pkey'
+    
+class LeadCreateView(LoginRequiredMixin, CreateView):
+    template_name="leads/lead_create.html"
+    form_class=LeadModelForm
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+    
+    def form_valid(self, form):
+        #TODO send email notification
+        send_mail(
+            subject="Lead had been created",
+            message="Lead had been created, please go the site and view it",
+            from_email="test@testemail.com",
+            recipient_list=["huidh@yahoo.com"]
+        )
+        return super(LeadCreateView, self).form_valid(form)
+    
+class LeadUpdateView(LoginRequiredMixin, UpdateView):
+    template_name="leads/lead_update.html"
+    queryset=Lead.objects.all()
+    pk_url_kwarg = 'pkey'
+    form_class=LeadModelForm
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+    
+class LeadDeleteView(LoginRequiredMixin, DeleteView):
+    template_name="leads/lead_delete.html"
+    queryset=Lead.objects.all()
+    pk_url_kwarg = 'pkey'
+    form_class=LeadModelForm
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+
+#function based views
 def landing_page(request):
     return render(request, "leads/landing_page.html")
 
