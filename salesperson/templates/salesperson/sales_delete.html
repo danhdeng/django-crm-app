@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
-     {% block content %}
+{% load tailwind_filters %}
+{% block content %}
+  <div class="max-w-lg mx-auto">
   <a href="{% url 'salesperson:salesperson-list' %}">go back to the salesperson list</a>
     <br>
     <h1>Delete a Sales Person</h1>
     <form method="post" action=".">
         {% csrf_token %}
-        {{form.as_p}}
-    <button type="submit">Submit</button>
+        {{ form|crispy }}
+    <button type="submit" class="w-full bg-blue-500 text-white hover:bg-blue-600 px-3 py-1 rounded-md">Submit</button>
     </form>
-
+  </div>
  {% endblock content %}

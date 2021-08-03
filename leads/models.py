@@ -19,7 +19,7 @@ class UserProfile(models.Model):
     
 class SalesPerson(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    organization= models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    organization= models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def __str__(self)->str:
         return f"{self.user.username} {self.user.email}"
@@ -33,9 +33,20 @@ class Lead(models.Model):
     age =models.IntegerField(default=0)
     agent = models.ForeignKey("SalesPerson", null=True, blank=True, on_delete=models.SET_NULL)
     organization= models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    category= models.ForeignKey("Category", related_name="leads", null=True, blank=True, on_delete=models.SET_NULL)
+    description = models.TextField(null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    phone_number = models.CharField(max_length=20)
+    email = models.EmailField()
     
     def __str__(self) -> str:
         return f"frist name: {self.first_name} last name: {self.last_name}"
+    
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+    organization= models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    def __str__(self)->str:
+        return self.name
     
 def post_user_created_signal(sender, instance, created, **kwargs):
     if created:

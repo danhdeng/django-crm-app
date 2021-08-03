@@ -17,6 +17,10 @@ INSTALLED_APPS = [
     'agent'
 ]
 
+#export isntalled packages to requirements.txt file
+
+pip freeze > requirements.txt
+
 #run the test case
 
 python manage.py test
