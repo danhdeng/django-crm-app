@@ -50,4 +50,7 @@ def post_user_created_signal(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 post_save.connect(post_user_created_signal, sender=User)
+
+#to collect all static files
+python manage.py collectstatic
    
